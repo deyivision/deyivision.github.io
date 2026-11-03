@@ -1,8 +1,95 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Deyi Vision - Machine Vision Components</title><meta name="description" content="Deyi Vision supplies industrial cameras, machine vision lenses and LED lighting."></head>
-<body style="font-family:sans-serif;max-width:720px;margin:40px auto;padding:0 16px;line-height:1.6">
-<h1>Deyi Vision</h1>
-<p>Deyi Vision supplies machine vision components for automated inspection: industrial cameras, machine vision lenses and LED lighting.</p>
-<p>Send us sample images of your parts and we will help you match the camera, lens and light to your application.</p>
-<p><a href="https://deyivision.com/?utm_source=github&amp;utm_medium=referral">Visit Deyi Vision</a></p>
-</body></html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3D Vision Sensors in Industry: Structured Light vs Laser</title>
+<meta name="description" content="How industrial 3D vision works: structured light, laser line profiling and stereo compared, with height, volume and robot-guidance applications and pitfalls.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://deyivision.github.io/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3D Vision Sensors in Industry: Structured Light vs Laser">
+<meta property="og:description" content="How industrial 3D vision works: structured light, laser line profiling and stereo compared, with height, volume and robot-guidance applications and pitfalls.">
+<meta property="og:url" content="https://deyivision.github.io/">
+<meta property="og:image" content="https://deyivision.github.io/images/industrial-3d-vision-camera-structured-light.webp">
+<meta property="og:site_name" content="Deyi Vision notes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="3D Vision Sensors in Industry: Structured Light vs Laser">
+<meta name="twitter:description" content="How industrial 3D vision works: structured light, laser line profiling and stereo compared, with height, volume and robot-guidance applications and pitfalls.">
+<meta name="twitter:image" content="https://deyivision.github.io/images/industrial-3d-vision-camera-structured-light.webp">
+<style>*{box-sizing:border-box}body{margin:0;font:17px/1.7 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#1d2433;background:#f6f8fb}
+header.top{background:#0b5cab;color:#fff;padding:14px 20px}header.top a{color:#fff;text-decoration:none;font-weight:600}
+main{max-width:820px;margin:0 auto;background:#fff;padding:28px 22px 40px}h1{font-size:2rem;line-height:1.25;margin:.2em 0 .4em}
+h2{font-size:1.45rem;margin:1.8em 0 .5em;border-bottom:2px solid #e6ebf2;padding-bottom:.2em}h3{font-size:1.15rem;margin:1.3em 0 .3em}
+p{margin:.7em 0}a{color:#0b5cab}figure{margin:1.5em 0}figure img{width:100%;height:auto;border-radius:8px;display:block}
+figcaption{font-size:.88rem;color:#5b6577;margin-top:.4em}table{border-collapse:collapse;width:100%;font-size:.95rem;margin:1em 0}
+th,td{border:1px solid #dde3ec;padding:8px 10px;text-align:left;vertical-align:top}th{background:#eef3f9}
+.lead{font-size:1.08rem;color:#3a4458}.meta{font-size:.85rem;color:#6b7486}.faq h3{margin-top:1.1em}.contact{background:#eef3f9;padding:14px 18px;border-radius:8px}
+footer{max-width:820px;margin:0 auto;padding:18px 22px;font-size:.88rem;color:#5b6577}@media(max-width:600px){h1{font-size:1.6rem}main{padding:20px 16px}}</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "3D Vision Sensors for Industrial Inspection: Structured Light, Laser Profiling and Use Cases", "description": "How industrial 3D vision works: structured light, laser line profiling and stereo compared, with height, volume and robot-guidance applications and pitfalls.", "image": ["https://deyivision.github.io/images/industrial-3d-vision-camera-structured-light.webp"], "datePublished": "2026-11-03", "dateModified": "2026-11-03", "inLanguage": "en", "mainEntityOfPage": "https://deyivision.github.io/", "author": {"@type": "Organization", "name": "Deyi Vision", "url": "https://deyivision.com/"}, "publisher": {"@type": "Organization", "name": "Deyi Vision", "url": "https://deyivision.com/"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Do I need 3D vision or will a 2D camera do?", "acceptedAnswer": {"@type": "Answer", "text": "If the defect or decision depends on height, flatness, volume or orientation in depth, 3D helps. If it depends on outline, colour or print on a predictable plane, 2D is cheaper and simpler."}}, {"@type": "Question", "name": "Is structured light or laser profiling more accurate?", "acceptedAnswer": {"@type": "Answer", "text": "Both can be very accurate. Laser line profilers excel on moving parts on a conveyor; structured-light snapshot sensors suit stationary scenes and bin picking. Accuracy depends on the specific sensor and setup."}}, {"@type": "Question", "name": "Why do shiny parts cause gaps in 3D data?", "acceptedAnswer": {"@type": "Answer", "text": "Specular surfaces reflect the projected pattern or laser away from the sensor, leaving missing points. Changing the angle, using a diffuse coating in testing or choosing a different sensor geometry can help."}}, {"@type": "Question", "name": "What output does a 3D sensor give?", "acceptedAnswer": {"@type": "Answer", "text": "Usually a point cloud or a height map (range image), plus measured values such as heights, volumes or positions passed to a PLC or robot."}}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Deyi Vision", "url": "https://deyivision.com/", "email": "sales@deyivision.com", "contactPoint": {"@type": "ContactPoint", "contactType": "sales", "email": "sales@deyivision.com", "availableLanguage": ["English"]}}</script>
+</head>
+<body>
+<header class="top"><a href="https://deyivision.com/?utm_source=github&amp;utm_medium=referral">Deyi Vision</a></header>
+<main>
+<article>
+<h1>3D Vision Sensors for Industrial Inspection: Structured Light, Laser Profiling and Use Cases</h1>
+<p class="meta">Published 3 November 2026 · Deyi Vision technical notes</p>
+
+<p class="lead">Two-dimensional cameras see brightness. Many production questions, though, are about shape: Is this weld bead high enough? Is the battery tab flat? Where exactly is the part in the bin? Industrial 3D vision answers those questions by measuring distance as well as image intensity.</p>
+<h2>What 3D machine vision measures</h2>
+<p>A 3D sensor produces a set of points with X, Y and Z coordinates, often stored as a height map where each pixel holds a height instead of a grey value. From that data software extracts measurements: step heights, gaps and flush, flatness, volume, or the pose of an object for a robot.</p>
+<p>The main benefit is robustness to colour and print. A black mark and a white mark at the same height look identical in 3D, so measurements do not drift with surface colour.</p>
+<figure><img src="images/industrial-3d-vision-camera-structured-light.webp" alt="Industrial 3D vision camera used for height and profile measurement" width="1200" height="900" loading="lazy" decoding="async"><figcaption>3D sensors add a height value to every measured point. Image: Deyi Vision.</figcaption></figure>
+<h2>Main 3D technologies compared</h2>
+<h3>Laser line triangulation (profile sensors)</h3>
+<p>A laser line is projected onto the part and a camera views it from an angle. The line's shape in the image encodes the profile. As the part moves under the sensor, profiles are stacked into a full 3D scan. This is the workhorse for conveyor inspection of welds, seals, adhesive beads and extrusions.</p>
+<h3>Structured light (snapshot sensors)</h3>
+<p>A projector casts a series of patterns over the whole scene and a camera captures how they deform. The result is a full 3D snapshot without moving the part. It suits stationary inspection, assembly checks and robot picking.</p>
+<h3>Stereo and time-of-flight</h3>
+<p>Stereo cameras compare two views, like human eyes, and work best on textured scenes. <a href="https://en.wikipedia.org/wiki/Time-of-flight_camera">Time-of-flight cameras</a> measure light travel time and are popular for logistics and volume estimation at lower precision.</p>
+<table>
+<thead><tr><th>Technology</th><th>Motion needed</th><th>Typical strength</th><th>Watch out for</th></tr></thead>
+<tbody>
+<tr><td>Laser line profiling</td><td>Yes, part or sensor moves</td><td>Fine profiles at line speed</td><td>Encoder sync, shadowing</td></tr>
+<tr><td>Structured light</td><td>No</td><td>Full-field snapshot</td><td>Part must hold still during capture</td></tr>
+<tr><td>Stereo</td><td>No</td><td>Large scenes, robots</td><td>Featureless surfaces</td></tr>
+<tr><td>Time-of-flight</td><td>No</td><td>Volume, presence, logistics</td><td>Lower precision</td></tr>
+</tbody>
+</table>
+<h2>Typical industrial applications</h2>
+<ul>
+<li><strong>Height and coplanarity:</strong> connector pins, battery tab welds, component standoff.</li>
+<li><strong>Bead and seal inspection:</strong> glue, sealant and weld bead width, height and continuity.</li>
+<li><strong>Gap and flush:</strong> panel alignment in automotive and appliance assembly.</li>
+<li><strong>Volume:</strong> food portions, packages and bulk material.</li>
+<li><strong>Robot guidance:</strong> locating parts in depth for picking, alignment and assembly.</li>
+</ul>
+<p>Deyi Vision groups structured-light 3D sensors and line-laser profile measurement under its <a href="https://deyivision.com/products/3d-vision-cameras/?utm_source=github&amp;utm_medium=referral">3D vision camera route</a> for height, profile and surface geometry checks.</p>
+<h2>3D vision and robot pickup</h2>
+<p>Bin picking is the best-known 3D robot task, but it is also one of the hardest: parts overlap, reflect and hide each other. A simpler option is often to singulate parts first so they lie flat and apart, then locate them with 2D or light 3D vision.</p>
+<figure><img src="images/robot-loading-cell-vision-guidance.webp" alt="Robot loading cell with vision guidance above a flexible feeder" width="1200" height="900" loading="lazy" decoding="async"><figcaption>Vision-guided robot pickup is a common 3D and 2.5D application. Image: Deyi Vision.</figcaption></figure>
+<p>That is the idea behind flexible feeders: a vibrating tray spreads loose parts, a camera above finds the ones in a pickable pose, and the robot picks them. Deyi Vision's <a href="https://deyivision.com/products/flexible-feeders-workstations/?utm_source=github&amp;utm_medium=referral">flexible feeders and DTA workstations</a> cover parts from 0.1 to 100 mm with F, FL and FS feeder series. Where the part can be presented flat, this route frequently avoids the cost and complexity of full bin picking.</p>
+<figure><img src="images/flexible-feeder-workstation-vision-pickup.webp" alt="Flexible feeder workstation where vision locates loose parts for robot pickup" width="1200" height="900" loading="lazy" decoding="async"><figcaption>Singulating parts on a feeder often lets a 2D camera replace 3D. Image: Deyi Vision.</figcaption></figure>
+<h2>Pitfalls when adopting 3D vision</h2>
+<h3>Reflective and dark surfaces</h3>
+<p>Mirror-like metal reflects the projected light away, while very dark rubber absorbs it. Both create holes in the data. Test on real parts at the real angle.</p>
+<h3>Occlusion and shadowing</h3>
+<p>Because triangulation views the part from an angle, tall features can hide neighbouring areas. Dual-sensor layouts or a different orientation reduce shadowing.</p>
+<h3>Data volume and processing time</h3>
+<p>Point clouds are large. Check that the controller can process each scan within the cycle time, and keep only the region you need.</p>
+<h2>How to scope a 3D project</h2>
+<ol>
+<li>State the measurement and tolerance, for example "bead height 1.0 mm ± 0.1 mm".</li>
+<li>Define the measuring area and whether the part moves.</li>
+<li>Collect samples that include worst-case surface finish.</li>
+<li>Decide on the output: pass/fail, numbers to a PLC, or poses to a robot.</li>
+</ol>
+<p>Scoping in this order makes it clear whether 3D is needed at all, which is often the most valuable answer. Questions about any of these steps can go to <a href="https://deyivision.com/?utm_source=github&amp;utm_medium=referral">Deyi Vision</a> with a sample photo.</p>
+
+<section class="faq"><h2>Frequently asked questions</h2><h3>Do I need 3D vision or will a 2D camera do?</h3><p>If the defect or decision depends on height, flatness, volume or orientation in depth, 3D helps. If it depends on outline, colour or print on a predictable plane, 2D is cheaper and simpler.</p><h3>Is structured light or laser profiling more accurate?</h3><p>Both can be very accurate. Laser line profilers excel on moving parts on a conveyor; structured-light snapshot sensors suit stationary scenes and bin picking. Accuracy depends on the specific sensor and setup.</p><h3>Why do shiny parts cause gaps in 3D data?</h3><p>Specular surfaces reflect the projected pattern or laser away from the sensor, leaving missing points. Changing the angle, using a diffuse coating in testing or choosing a different sensor geometry can help.</p><h3>What output does a 3D sensor give?</h3><p>Usually a point cloud or a height map (range image), plus measured values such as heights, volumes or positions passed to a PLC or robot.</p></section>
+<section class="contact"><h2>Contact</h2><p>Considering 3D for a height, profile or pick-and-place task? Send a part photo, the tolerance and the cycle time and we can suggest a sensor route. Email <a href="mailto:sales@deyivision.com">sales@deyivision.com</a> or visit <a href="https://deyivision.com/contact/?utm_source=github&amp;utm_medium=referral">the Deyi Vision contact page</a>.</p></section>
+</article>
+</main>
+<footer><p>&copy; 2026 Deyi Vision · <a href="https://deyivision.com/?utm_source=github&amp;utm_medium=referral">deyivision.com</a> · Contact: <a href="mailto:sales@deyivision.com">sales@deyivision.com</a></p></footer>
+</body>
+</html>
